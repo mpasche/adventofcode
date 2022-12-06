@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 
 @Slf4j
 @Date(year = 2022, day = 2)
@@ -40,31 +39,33 @@ public class Day2 implements Challenge
     input = Input.readInputFileByLine(2022, 2);
   }
 
+  private Map.Entry<Shape, Shape> mapToShapes1(final String input)
+  {
+    final String[] split = input.split(" ");
+    final Shape opponentShape = Shape.values()[getOrdinal(split[0])];
+    final Shape myShape = Shape.values()[getOrdinal(split[1])];
+    return Map.entry(opponentShape, myShape);
+  }
+
   @Override
   public void task1()
   {
-    final Function<String, Map.Entry<Shape, Shape>> mapToShape = input -> {
-      final String[] split = input.split(" ");
-      final Shape opponentShape = Shape.values()[getOrdinal(split[0])];
-      final Shape myShape = Shape.values()[getOrdinal(split[1])];
-      return Map.entry(opponentShape, myShape);
-    };
-    
-    log.info("Task 1: Score {}", input.stream().map(mapToShape).mapToInt(this::calculateScore).sum());
+    log.info("Task 1: Score {}", input.stream().map(this::mapToShapes1).mapToInt(this::calculateScore).sum());
+  }
+
+  private Map.Entry<Shape, Shape> mapToShapes2(final String input)
+  {
+    final String[] split = input.split(" ");
+    final Shape opponentShape = Shape.values()[getOrdinal(split[0])];
+    final Outcome outcome = Outcome.values()[getOrdinal(split[1])];
+    final Shape myShape = chooseShape(opponentShape, outcome);
+    return Map.entry(opponentShape, myShape);
   }
 
   @Override
   public void task2()
   {
-    final Function<String, Map.Entry<Shape, Shape>> mapToShape = input -> {
-      final String[] split = input.split(" ");
-      final Shape opponentShape = Shape.values()[getOrdinal(split[0])];
-      final Outcome outcome = Outcome.values()[getOrdinal(split[1])];
-      final Shape myShape = chooseShape(opponentShape, outcome);
-      return Map.entry(opponentShape, myShape);
-    };
-
-    log.info("Task 2: Score {}", input.stream().map(mapToShape).mapToInt(this::calculateScore).sum());
+    log.info("Task 2: Score {}", input.stream().map(this::mapToShapes2).mapToInt(this::calculateScore).sum());
   }
 
   private int getOrdinal(final String input)
