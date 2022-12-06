@@ -53,7 +53,7 @@ public class Day2 implements Challenge
       return Map.entry(opponentShape, myShape);
     };
     
-    log.info("Task 1: Score {}", input.stream().map(mapToShape).map(this::calculateScore).mapToInt(i -> i).sum());
+    log.info("Task 1: Score {}", input.stream().map(mapToShape).mapToInt(this::calculateScore).sum());
   }
 
   @Override
@@ -67,7 +67,7 @@ public class Day2 implements Challenge
       return Map.entry(opponentShape, myShape);
     };
 
-    log.info("Task 2: Score {}", input.stream().map(mapToShape).map(this::calculateScore).mapToInt(i -> i).sum());
+    log.info("Task 2: Score {}", input.stream().map(mapToShape).mapToInt(this::calculateScore).sum());
   }
 
   private int getOrdinal(final String input)
