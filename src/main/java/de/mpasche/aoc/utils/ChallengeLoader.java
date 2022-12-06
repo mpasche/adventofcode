@@ -15,7 +15,7 @@ public class ChallengeLoader
       final ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
       final Class<?> aClass = ClassPath.from(classLoader)
-        .getTopLevelClassesRecursive("de.mpasche.aoc._" + year)
+        .getTopLevelClassesRecursive("de.mpasche.aoc")
         .stream()
         .map(ClassPath.ClassInfo::load)
         .filter(clazz -> clazz.isAnnotationPresent(Date.class))
