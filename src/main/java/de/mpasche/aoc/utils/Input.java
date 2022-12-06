@@ -36,11 +36,11 @@ public class Input
     }
   }
 
-  private static void writeInputFile(final File file, final String data)
+  private static void writeInputFile(final File file, final String input)
   {
     try(final BufferedWriter writer = Files.newWriter(file, Charset.defaultCharset()))
     {
-      writer.write(data);
+      writer.write(input);
     }
     catch(IOException e)
     {
