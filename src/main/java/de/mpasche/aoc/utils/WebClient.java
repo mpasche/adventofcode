@@ -6,7 +6,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.time.Duration;
 
-public class Client
+public class WebClient
 {
   public static HttpClient getClient()
   {
@@ -23,6 +23,6 @@ public class Client
       .build();
   }
 
-  private Client() {}
+  private WebClient() {}
 
 }

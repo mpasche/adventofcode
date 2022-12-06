@@ -28,7 +28,7 @@ public class Input
 
     try
     {
-      return Client.getClient().send(request, HttpResponse.BodyHandlers.ofString()).body();
+      return WebClient.getClient().send(request, HttpResponse.BodyHandlers.ofString()).body();
     }
     catch(Exception e)
     {
