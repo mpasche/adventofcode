@@ -33,14 +33,11 @@ public class Day2 implements Challenge
     }
   }
 
-  final int year = getClass().getAnnotation(Date.class).year();
-  final int day = getClass().getAnnotation(Date.class).day();
   final List<String> input;
 
   public Day2()
   {
-    Input.loadData(year, day);
-    input = Input.readInputFileByLine(year, day);
+    input = Input.readInputFileByLine(2022, 2);
   }
 
   @Override

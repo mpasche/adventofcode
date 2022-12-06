@@ -48,36 +48,35 @@ public class Input
     }
   }
 
-  public static void loadData(final int year, final int day)
+  private static File loadInputFile(final int year, final int day)
+    throws IOException, InterruptedException
   {
     final File file = getInputFile(year, day);
-    try
+    Files.createParentDirs(file);
+    if(file.createNewFile() || file.length() == 0)
     {
-      Files.createParentDirs(file);
-      if(file.createNewFile() || file.length() == 0)
+      try
       {
         writeInputFile(file, getRequest(year, day));
       }
+      catch(IllegalArgumentException e)
+      {
+        file.deleteOnExit();
+        log.error("Invalid cookie. Please update the file /resources/COOKIE with your session cookie.");
+        System.exit(1);
+      }
     }
-    catch(IllegalArgumentException e)
-    {
-      file.deleteOnExit();
-      log.error("Invalid cookie. Please update the file /resources/COOKIE with your session cookie.");
-      System.exit(1);
-    }
-    catch(Exception e)
-    {
-      throw new RuntimeException(e);
-    }
+    return file;
   }
 
   public static String readInputFile(final int year, final int day)
   {
     try
     {
-      return Resources.toString(getInputFile(year, day).toURI().toURL(), Charset.defaultCharset());
+      final File file = loadInputFile(year, day);
+      return Resources.toString(file.toURI().toURL(), Charset.defaultCharset());
     }
-    catch(IOException e)
+    catch(Exception e)
     {
       throw new RuntimeException(e);
     }
@@ -87,9 +86,10 @@ public class Input
   {
     try
     {
-      return Files.readLines(getInputFile(year, day), Charset.defaultCharset());
+      final File file = loadInputFile(year, day);
+      return Files.readLines(file, Charset.defaultCharset());
     }
-    catch(IOException e)
+    catch(Exception e)
     {
       throw new RuntimeException(e);
     }

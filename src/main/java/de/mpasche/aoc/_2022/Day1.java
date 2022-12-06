@@ -12,14 +12,11 @@ import java.util.Comparator;
 @Date(year = 2022, day = 1)
 public class Day1 implements Challenge
 {
-  final int year = getClass().getAnnotation(Date.class).year();
-  final int day = getClass().getAnnotation(Date.class).day();
   final String input;
 
   public Day1()
   {
-    Input.loadData(year, day);
-    this.input = Input.readInputFile(year, day);
+    this.input = Input.readInputFile(2022, 1);
   }
 
   @Override
