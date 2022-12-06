@@ -2,8 +2,10 @@ package de.mpasche.aoc.utils;
 
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -11,6 +13,7 @@ import java.nio.charset.Charset;
 import java.text.MessageFormat;
 import java.util.List;
 
+@Slf4j
 public class Input
 {
   private static File getInputFile(final int year, final int day)
@@ -18,7 +21,8 @@ public class Input
     return new File("src/main/resources/inputs/" + year + "/day" + day + ".txt");
   }
 
-  private static String sendRequest(final int year, final int day)
+  private static String getRequest(final int year, final int day)
+    throws IOException, InterruptedException, IllegalArgumentException
   {
     final String url = MessageFormat.format(Config.getInputURL(), Integer.toString(year), Integer.toString(day));
     final HttpRequest request = HttpRequest.newBuilder()
@@ -26,25 +30,21 @@ public class Input
       .GET()
       .build();
 
-    try
+    final HttpResponse<String> response = WebClient.getClient().send(request, HttpResponse.BodyHandlers.ofString());
+    if(response.statusCode() != HttpURLConnection.HTTP_OK)
     {
-      return WebClient.getClient().send(request, HttpResponse.BodyHandlers.ofString()).body();
+      // cannot log in -> invalid cookie
+      throw new IllegalArgumentException();
     }
-    catch(Exception e)
-    {
-      throw new RuntimeException(e);
-    }
+    return response.body();
   }
 
   private static void writeInputFile(final File file, final String input)
+    throws IOException
   {
     try(final BufferedWriter writer = Files.newWriter(file, Charset.defaultCharset()))
     {
       writer.write(input);
-    }
-    catch(IOException e)
-    {
-      throw new RuntimeException(e);
     }
   }
 
@@ -56,10 +56,16 @@ public class Input
       Files.createParentDirs(file);
       if(file.createNewFile() || file.length() == 0)
       {
-        writeInputFile(file, sendRequest(year, day));
+        writeInputFile(file, getRequest(year, day));
       }
     }
-    catch(IOException e)
+    catch(IllegalArgumentException e)
+    {
+      file.deleteOnExit();
+      log.error("Invalid cookie. Please update the file /resources/COOKIE with your session cookie.");
+      System.exit(1);
+    }
+    catch(Exception e)
     {
       throw new RuntimeException(e);
     }
