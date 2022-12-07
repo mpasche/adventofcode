@@ -13,7 +13,7 @@ import java.util.Map;
 @Date(year = 2022, day = 4)
 public class Day4 implements Challenge
 {
-  final List<String> input;
+  private final List<String> input;
 
   public Day4()
   {

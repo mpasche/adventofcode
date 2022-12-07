@@ -12,7 +12,7 @@ import java.util.Comparator;
 @Date(year = 2022, day = 1)
 public class Day1 implements Challenge
 {
-  final String input;
+  private final String input;
 
   public Day1()
   {

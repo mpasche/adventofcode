@@ -32,7 +32,7 @@ public class Day2 implements Challenge
     }
   }
 
-  final List<String> input;
+  private final List<String> input;
 
   public Day2()
   {

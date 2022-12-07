@@ -12,7 +12,7 @@ import java.util.*;
 @Date(year = 2022, day = 3)
 public class Day3 implements Challenge
 {
-  final List<String> input;
+  private final List<String> input;
 
   public Day3()
   {
