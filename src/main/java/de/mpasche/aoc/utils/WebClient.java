@@ -10,7 +10,7 @@ public class WebClient
 {
   public static HttpClient getClient()
   {
-    final HttpCookie sessionCookie = new HttpCookie("session", Config.getSession().trim());
+    final HttpCookie sessionCookie = new HttpCookie("session", Config.getSession());
     sessionCookie.setPath("/");
     sessionCookie.setVersion(0);
 

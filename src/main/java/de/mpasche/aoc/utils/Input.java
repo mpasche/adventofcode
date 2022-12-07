@@ -5,6 +5,7 @@ import com.google.common.io.Resources;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.http.HttpRequest;
@@ -22,7 +23,7 @@ public class Input
   }
 
   private static String getRequest(final int year, final int day)
-    throws IOException, InterruptedException, IllegalArgumentException
+    throws IOException, InterruptedException
   {
     final String url = MessageFormat.format(Config.getInputURL(), Integer.toString(year), Integer.toString(day));
     final HttpRequest request = HttpRequest.newBuilder()
@@ -31,12 +32,13 @@ public class Input
       .build();
 
     final HttpResponse<String> response = WebClient.getClient().send(request, HttpResponse.BodyHandlers.ofString());
-    if(response.statusCode() != HttpURLConnection.HTTP_OK)
+    switch(response.statusCode())
     {
-      // cannot log in -> invalid cookie
-      throw new IllegalArgumentException();
+      case HttpURLConnection.HTTP_OK -> { return response.body(); }
+      case HttpURLConnection.HTTP_BAD_REQUEST -> log.error("Invalid cookie. Please update the file /resources/COOKIE with your session cookie.");
+      case HttpURLConnection.HTTP_NOT_FOUND -> log.error("Invalid challenge.");
     }
-    return response.body();
+    throw new ConnectException(String.valueOf(response.statusCode()));
   }
 
   private static void writeInputFile(final File file, final String input)
@@ -59,10 +61,10 @@ public class Input
       {
         writeInputFile(file, getRequest(year, day));
       }
-      catch(IllegalArgumentException e)
+      catch(ConnectException e)
       {
         file.deleteOnExit();
-        log.error("Invalid cookie. Please update the file /resources/COOKIE with your session cookie.");
+        log.error("Status Code {}", e.getMessage());
         System.exit(1);
       }
     }
