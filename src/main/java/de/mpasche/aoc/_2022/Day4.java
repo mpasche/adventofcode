@@ -32,7 +32,7 @@ public class Day4 implements Challenge
     log.info("Task 2: {} assignments overlap.", input.stream().map(this::mapToRanges).filter(this::isOverlapping).count());
   }
 
-  public Map.Entry<Range<Integer>, Range<Integer>> mapToRanges(final String input)
+  private Map.Entry<Range<Integer>, Range<Integer>> mapToRanges(final String input)
   {
     final String[] split = input.split(",");
     return Map.entry(getRange(split[0]), getRange(split[1]));
