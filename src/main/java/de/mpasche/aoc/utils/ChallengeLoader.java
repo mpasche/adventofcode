@@ -3,9 +3,11 @@ package de.mpasche.aoc.utils;
 import com.google.common.reflect.ClassPath;
 import de.mpasche.aoc.common.Challenge;
 import de.mpasche.aoc.common.Date;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@UtilityClass
 public class ChallengeLoader
 {
   public static Challenge loadChallenge(final int year, final int day)
@@ -33,7 +35,4 @@ public class ChallengeLoader
       return null;
     }
   }
-
-  private ChallengeLoader() {}
-
 }

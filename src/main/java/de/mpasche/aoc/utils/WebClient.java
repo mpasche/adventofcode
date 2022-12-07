@@ -1,11 +1,14 @@
 package de.mpasche.aoc.utils;
 
+import lombok.experimental.UtilityClass;
+
 import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.time.Duration;
 
+@UtilityClass
 public class WebClient
 {
   public static HttpClient getClient()
@@ -22,7 +25,4 @@ public class WebClient
       .connectTimeout(Duration.ofSeconds(5))
       .build();
   }
-
-  private WebClient() {}
-
 }

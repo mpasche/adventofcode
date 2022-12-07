@@ -1,6 +1,7 @@
 package de.mpasche.aoc.utils;
 
 import com.google.common.io.Resources;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
@@ -8,6 +9,7 @@ import java.nio.charset.Charset;
 import java.util.Properties;
 
 @Slf4j
+@UtilityClass
 public class Config
 {
   private static Properties PROPERTIES;
@@ -55,7 +57,4 @@ public class Config
       return null;
     }
   }
-
-  private Config() {}
-
 }

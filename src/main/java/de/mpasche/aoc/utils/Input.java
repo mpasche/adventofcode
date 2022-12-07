@@ -2,6 +2,7 @@ package de.mpasche.aoc.utils;
 
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
@@ -15,6 +16,7 @@ import java.text.MessageFormat;
 import java.util.List;
 
 @Slf4j
+@UtilityClass
 public class Input
 {
   private static File getInputFile(final int year, final int day)
@@ -96,7 +98,4 @@ public class Input
       throw new RuntimeException(e);
     }
   }
-
-  private Input() {}
-
 }
