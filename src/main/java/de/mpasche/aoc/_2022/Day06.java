@@ -25,7 +25,7 @@ public class Day06 implements Day
   @Override
   public void task2()
   {
-    log.info("Task 1: Marker was found at {}.", findMarker(14));
+    log.info("Task 2: Marker was found at {}.", findMarker(14));
   }
 
   private int findMarker(final int size)
