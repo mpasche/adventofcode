@@ -1,8 +1,15 @@
 package de.mpasche.aoc.common;
 
-public interface Challenge
-{
-  void task1();
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-  void task2();
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Challenge
+{
+  int year();
+
+  int day();
 }

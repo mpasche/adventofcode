@@ -1,8 +1,8 @@
 package de.mpasche.aoc.utils;
 
 import com.google.common.reflect.ClassPath;
+import de.mpasche.aoc.common.Day;
 import de.mpasche.aoc.common.Challenge;
-import de.mpasche.aoc.common.Date;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 @UtilityClass
 public class ChallengeLoader
 {
-  public static Challenge loadChallenge(final int year, final int day)
+  public static Day loadChallenge(final int year, final int day)
   {
     try
     {
@@ -20,13 +20,13 @@ public class ChallengeLoader
         .getTopLevelClassesRecursive("de.mpasche.aoc")
         .stream()
         .map(ClassPath.ClassInfo::load)
-        .filter(clazz -> clazz.isAnnotationPresent(Date.class))
-        .filter(clazz -> clazz.getAnnotation(Date.class).year() == year)
-        .filter(clazz -> clazz.getAnnotation(Date.class).day() == day)
+        .filter(clazz -> clazz.isAnnotationPresent(Challenge.class))
+        .filter(clazz -> clazz.getAnnotation(Challenge.class).year() == year)
+        .filter(clazz -> clazz.getAnnotation(Challenge.class).day() == day)
         .findFirst()
         .orElseThrow();
 
-      return classLoader.loadClass(aClass.getName()).asSubclass(Challenge.class).getDeclaredConstructor().newInstance();
+      return classLoader.loadClass(aClass.getName()).asSubclass(Day.class).getDeclaredConstructor().newInstance();
     }
     catch(Exception e)
     {

@@ -1,7 +1,7 @@
 package de.mpasche.aoc._2022;
 
-import de.mpasche.aoc.common.Date;
 import de.mpasche.aoc.common.Challenge;
+import de.mpasche.aoc.common.Day;
 import de.mpasche.aoc.utils.Input;
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,12 +9,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 @Slf4j
-@Date(year = 2022, day = 1)
-public class Day1 implements Challenge
+@Challenge(year = 2022, day = 1)
+public class Day01 implements Day
 {
   private final String input;
 
-  public Day1()
+  public Day01()
   {
     this.input = Input.readInputFile(2022, 1);
   }

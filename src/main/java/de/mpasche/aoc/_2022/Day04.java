@@ -1,8 +1,8 @@
 package de.mpasche.aoc._2022;
 
 import com.google.common.collect.Range;
+import de.mpasche.aoc.common.Day;
 import de.mpasche.aoc.common.Challenge;
-import de.mpasche.aoc.common.Date;
 import de.mpasche.aoc.utils.Input;
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Date(year = 2022, day = 4)
-public class Day4 implements Challenge
+@Challenge(year = 2022, day = 4)
+public class Day04 implements Day
 {
   private final List<String> input;
 
-  public Day4()
+  public Day04()
   {
     input = Input.readInputFileByLine(2022, 4);
   }
@@ -34,16 +34,13 @@ public class Day4 implements Challenge
 
   private Map.Entry<Range<Integer>, Range<Integer>> mapToRanges(final String input)
   {
-    final String[] split = input.split(",");
-    return Map.entry(getRange(split[0]), getRange(split[1]));
+    final String[] split = input.split("[-,]");
+    return Map.entry(getRange(split[0], split[1]), getRange(split[2], split[3]));
   }
 
-  private Range<Integer> getRange(final String input)
+  private Range<Integer> getRange(final String lower, final String upper)
   {
-    final String[] split = input.split("-");
-    final int lowerAssignment = Integer.parseInt(split[0]);
-    final int upperAssignment = Integer.parseInt(split[1]);
-    return Range.closed(lowerAssignment, upperAssignment);
+    return Range.closed(Integer.parseInt(lower), Integer.parseInt(upper));
   }
 
   private boolean isFullyContained(final Map.Entry<Range<Integer>, Range<Integer>> pair)

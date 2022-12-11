@@ -1,20 +1,20 @@
 package de.mpasche.aoc._2022;
 
 import com.google.common.collect.Lists;
+import de.mpasche.aoc.common.Day;
 import de.mpasche.aoc.common.Challenge;
-import de.mpasche.aoc.common.Date;
 import de.mpasche.aoc.utils.Input;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
 @Slf4j
-@Date(year = 2022, day = 3)
-public class Day3 implements Challenge
+@Challenge(year = 2022, day = 3)
+public class Day03 implements Day
 {
   private final List<String> input;
 
-  public Day3()
+  public Day03()
   {
     input = Input.readInputFileByLine(2022, 3);
   }

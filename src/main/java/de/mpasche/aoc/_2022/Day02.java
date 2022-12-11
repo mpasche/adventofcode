@@ -1,16 +1,15 @@
 package de.mpasche.aoc._2022;
 
-import de.mpasche.aoc.common.Date;
 import de.mpasche.aoc.common.Challenge;
+import de.mpasche.aoc.common.Day;
 import de.mpasche.aoc.utils.Input;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
-@Date(year = 2022, day = 2)
-public class Day2 implements Challenge
+@Challenge(year = 2022, day = 2)
+public class Day02 implements Day
 {
   private enum Shape
   {
@@ -34,38 +33,38 @@ public class Day2 implements Challenge
 
   private final List<String> input;
 
-  public Day2()
+  public Day02()
   {
     input = Input.readInputFileByLine(2022, 2);
   }
 
-  private Map.Entry<Shape, Shape> mapToShapes1(final String input)
+  private int calculateScore1(final String input)
   {
     final String[] split = input.split(" ");
     final Shape opponentShape = Shape.values()[getOrdinal(split[0])];
     final Shape myShape = Shape.values()[getOrdinal(split[1])];
-    return Map.entry(opponentShape, myShape);
+    return calculateScore(opponentShape, myShape);
   }
 
   @Override
   public void task1()
   {
-    log.info("Task 1: Score {}", input.stream().map(this::mapToShapes1).mapToInt(this::calculateScore).sum());
+    log.info("Task 1: Score {}", input.stream().mapToInt(this::calculateScore1).sum());
   }
 
-  private Map.Entry<Shape, Shape> mapToShapes2(final String input)
+  private int calculateScore2(final String input)
   {
     final String[] split = input.split(" ");
     final Shape opponentShape = Shape.values()[getOrdinal(split[0])];
     final Outcome outcome = Outcome.values()[getOrdinal(split[1])];
     final Shape myShape = chooseShape(opponentShape, outcome);
-    return Map.entry(opponentShape, myShape);
+    return calculateScore(opponentShape, myShape);
   }
 
   @Override
   public void task2()
   {
-    log.info("Task 2: Score {}", input.stream().map(this::mapToShapes2).mapToInt(this::calculateScore).sum());
+    log.info("Task 2: Score {}", input.stream().mapToInt(this::calculateScore2).sum());
   }
 
   private int getOrdinal(final String input)
@@ -89,16 +88,13 @@ public class Day2 implements Challenge
     };
   }
 
-  private int calculateScore(final Map.Entry<Shape, Shape> pair)
+  private int calculateScore(final Shape opponentShape, final Shape myShape)
   {
-    return calculateOutcome(pair).getScore() + pair.getValue().getScore();
+    return calculateOutcome(opponentShape, myShape).getScore() + myShape.getScore();
   }
 
-  private Outcome calculateOutcome(final Map.Entry<Shape, Shape> pair)
+  private Outcome calculateOutcome(final Shape opponentShape, final Shape myShape)
   {
-    final Shape opponentShape = pair.getKey();
-    final Shape myShape = pair.getValue();
-
     if(opponentShape == myShape)
     {
       return Outcome.DRAW;

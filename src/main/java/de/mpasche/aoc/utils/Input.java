@@ -21,7 +21,7 @@ public class Input
 {
   private static File getInputFile(final int year, final int day)
   {
-    return new File("src/main/resources/inputs/" + year + "/day" + day + ".txt");
+    return new File("src/main/resources/inputs/" + year + "/day" + (day <= 9 ? "0" + day : day) + ".txt");
   }
 
   private static String getRequest(final int year, final int day)
