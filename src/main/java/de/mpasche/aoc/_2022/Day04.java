@@ -23,16 +23,16 @@ public class Day04 implements Day
   @Override
   public void task1()
   {
-    log.info("Task 1: {} assignments fully contain the other.", input.stream().map(this::mapToRanges).filter(this::isFullyContained).count());
+    log.info("Task 1: {} assignments fully contain the other.", input.stream().map(this::getRanges).filter(this::isFullyContained).count());
   }
 
   @Override
   public void task2()
   {
-    log.info("Task 2: {} assignments overlap.", input.stream().map(this::mapToRanges).filter(this::isOverlapping).count());
+    log.info("Task 2: {} assignments overlap.", input.stream().map(this::getRanges).filter(this::isOverlapping).count());
   }
 
-  private Map.Entry<Range<Integer>, Range<Integer>> mapToRanges(final String input)
+  private Map.Entry<Range<Integer>, Range<Integer>> getRanges(final String input)
   {
     final String[] split = input.split("[-,]");
     return Map.entry(getRange(split[0], split[1]), getRange(split[2], split[3]));

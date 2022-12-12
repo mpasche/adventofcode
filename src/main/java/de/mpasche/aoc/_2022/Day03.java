@@ -22,7 +22,7 @@ public class Day03 implements Day
   @Override
   public void task1()
   {
-    log.info("Task 1: Priority {}", input.stream().map(this::mapToCompartments).mapToInt(this::findIntersection).map(this::getPriority).sum());
+    log.info("Task 1: Priority {}", input.stream().map(this::getCompartments).mapToInt(this::findIntersection).map(this::getPriority).sum());
   }
 
   @Override
@@ -32,7 +32,7 @@ public class Day03 implements Day
     log.info("Task 2: Priority {}", groups.stream().mapToInt(this::findIntersection).map(this::getPriority).sum());
   }
 
-  private List<String> mapToCompartments(final String input)
+  private List<String> getCompartments(final String input)
   {
     final int index = Math.floorDiv(input.length(), 2);
     return List.of(input.substring(0, index), input.substring(index));

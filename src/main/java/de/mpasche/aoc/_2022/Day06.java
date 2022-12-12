@@ -13,7 +13,7 @@ public class Day06 implements Day
 
   public Day06()
   {
-    input = Input.readInputFile(2022, 6);
+    this.input = Input.readInputFile(2022, 6);
   }
 
   @Override

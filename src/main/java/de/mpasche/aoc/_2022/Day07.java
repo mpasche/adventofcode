@@ -18,29 +18,28 @@ public class Day07 implements Day
 {
   private static final Pattern FILE_PATTERN = Pattern.compile("(\\d+)\\s(\\w+.*\\w*)");
 
-  private final List<String> input;
+  private final Node root;
 
   public Day07()
   {
-    input = Input.readInputFileByLine(2022, 7);
+    this.root = loadFilesystem(Input.readInputFileByLine(2022, 7));
   }
 
   @Override
   public void task1()
   {
-    log.info("Task 1: Total directory size {}.", decodeTerminal().dirs().stream().filter(dir -> dir.size() <= 100000).mapToInt(Node::size).sum());
+    log.info("Task 1: Total directory size {}.", root.dirs().stream().filter(dir -> dir.size() <= 100000).mapToInt(Node::size).sum());
   }
 
   @Override
   public void task2()
   {
-    final Node root = decodeTerminal();
     // 70.000.000 - 30.000.000 -> max 40.000.000 may be stored on the filesystem
     final int sizeToDelete = root.size() - 70000000 - 30000000;
     log.info("Task 2: Directory size to delete {}.", root.dirs().stream().filter(dir -> dir.size() > sizeToDelete).mapToInt(Node::size).sorted().findFirst().orElse(-1));
   }
 
-  private Node decodeTerminal()
+  private Node loadFilesystem(final List<String> input)
   {
     final Node root = new Node(null, new HashMap<>(), 0);
     Node currentDir = root;
