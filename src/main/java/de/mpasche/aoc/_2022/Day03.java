@@ -22,14 +22,14 @@ public class Day03 implements Day
   @Override
   public void task1()
   {
-    log.info("Task 1: Priority {}", input.stream().map(this::mapToCompartments).mapToInt(this::findCommonItem).map(this::getPriority).sum());
+    log.info("Task 1: Priority {}", input.stream().map(this::mapToCompartments).mapToInt(this::findIntersection).map(this::getPriority).sum());
   }
 
   @Override
   public void task2()
   {
     final List<List<String>> groups = Lists.partition(input, 3);
-    log.info("Task 2: Priority {}", groups.stream().mapToInt(this::findCommonItem).map(this::getPriority).sum());
+    log.info("Task 2: Priority {}", groups.stream().mapToInt(this::findIntersection).map(this::getPriority).sum());
   }
 
   private List<String> mapToCompartments(final String input)
@@ -38,22 +38,22 @@ public class Day03 implements Day
     return List.of(input.substring(0, index), input.substring(index));
   }
 
-  private int findCommonItem(final List<String> input)
+  private int findIntersection(final List<String> input)
   {
     if(input.size() < 2)
     {
       throw new RuntimeException();
     }
-    final HashSet<Integer> result = new HashSet<>(input.get(0).chars().boxed().toList());
+    final Set<Integer> intersections = new HashSet<>(input.get(0).chars().boxed().toList());
     for(int i = 1; i < input.size(); i++)
     {
-      result.retainAll(input.get(i).chars().boxed().toList());
+      intersections.retainAll(input.get(i).chars().boxed().toList());
     }
-    if(result.size() != 1)
+    if(intersections.size() != 1)
     {
       throw new RuntimeException();
     }
-    return result.iterator().next();
+    return intersections.iterator().next();
   }
 
   private int getPriority(final int input)
