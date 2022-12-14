@@ -5,6 +5,13 @@ import de.mpasche.aoc.utils.ChallengeLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.cli.*;
 
+/**
+ * The main class for the Advent of Code challenge.
+ * This class contains the main method which is the entry point for the application.
+ * It parses the command line arguments and uses them to load and execute the challenge for the specified year and day.
+ *
+ * @author mpasche
+ */
 @Slf4j
 public class AdventOfCode
 {

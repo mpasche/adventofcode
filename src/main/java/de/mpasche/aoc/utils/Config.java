@@ -52,7 +52,7 @@ public class Config
     }
     catch(Exception e)
     {
-      log.error("Please create the file /resources/COOKIE with your session cookie.");
+      log.error("Please create the file '/resources/COOKIE' with your session cookie.");
       System.exit(1);
       return null;
     }

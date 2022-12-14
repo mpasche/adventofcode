@@ -6,10 +6,24 @@ import de.mpasche.aoc.common.Challenge;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * A utility class for loading a challenge for a specific year and day.
+ * Challenges are expected to be subclasses of the `Day` class, and should be annotated with the `Challenge` annotation,
+ * which specifies the year and day of the challenge.
+ *
+ * @author mpasche
+ */
 @Slf4j
 @UtilityClass
 public class ChallengeLoader
 {
+  /**
+   * Loads a challenge for the specified year and day.
+   *
+   * @param year the year of the challenge to load.
+   * @param day the day of the challenge to load.
+   * @return an instance of the challenge, if it is found.
+   */
   public static Day loadChallenge(final int year, final int day)
   {
     try
