@@ -21,23 +21,28 @@ import java.time.Duration;
 public class WebClient
 {
   /**
-   * Sends an HTTP request to a URL constructed using the specified year and day.
+   * Sends an HTTP request to a URL constructed using the given year and day.
+   * The response is converted to a string and passed to the handleResponse method for further processing.
    *
    * @param year The year to use in the URL.
    * @param day The day to use in the URL.
    * @return The response from the server.
    * @throws IOException If an I/O error occurs.
    * @throws InterruptedException If the thread is interrupted.
+   * @see #handleResponse(HttpResponse)
    */
   public static HttpResponse<String> sendRequest(final int year, final int day)
     throws IOException, InterruptedException
   {
     final String url = MessageFormat.format(Config.getInputURL(), Integer.toString(year), Integer.toString(day));
-    return sendRequest(createRequest(url));
+    final HttpRequest request = createRequest(url);
+    final HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
+    handleResponse(response);
+    return response;
   }
 
   /**
-   * Creates an HTTP GET request for the specified URL.
+   * Creates an HTTP GET request for the given URL.
    *
    * @param url The URL for the request.
    * @return The request object.
@@ -48,24 +53,6 @@ public class WebClient
       .uri(URI.create(url))
       .GET()
       .build();
-  }
-
-  /**
-   * Sends the specified HTTP request and returns the response from the server.
-   * The response is converted to a string and passed to the handleResponse method for further processing.
-   *
-   * @param request The HTTP request to send.
-   * @return The response from the server.
-   * @throws IOException If an I/O error occurs.
-   * @throws InterruptedException If the thread is interrupted.
-   * @see #handleResponse(HttpResponse)
-   */
-  private static HttpResponse<String> sendRequest(final HttpRequest request)
-    throws IOException, InterruptedException
-  {
-    final HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
-    handleResponse(response);
-    return response;
   }
 
   /**

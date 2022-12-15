@@ -26,8 +26,8 @@ public class AdventOfCode
     System.out.println();
 
     // command line options
-    final Option yearOption = Option.builder().option("y").longOpt("year").hasArg().type(Number.class).required().desc("Integer of the year").build();
-    final Option dayOption = Option.builder().option("d").longOpt("day").hasArg().type(Number.class).required().desc("Integer of the day").build();
+    final Option yearOption = Option.builder().option("y").longOpt("year").hasArg().type(Number.class).required().desc("The number of the year as int").build();
+    final Option dayOption = Option.builder().option("d").longOpt("day").hasArg().type(Number.class).required().desc("The number of the day as int").build();
     final Options options = new Options().addOption(yearOption).addOption(dayOption);
 
     final int inputYear;
@@ -41,7 +41,8 @@ public class AdventOfCode
     }
     catch(ParseException e)
     {
-      new HelpFormatter().printHelp(AdventOfCode.class.getSimpleName(), options);
+      new HelpFormatter().printHelp("aoc [options]", options);
+      System.out.println();
       System.exit(1);
       return;
     }

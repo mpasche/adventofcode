@@ -3,7 +3,7 @@ package de.mpasche.aoc._2022;
 import com.google.common.collect.Lists;
 import de.mpasche.aoc.common.Day;
 import de.mpasche.aoc.common.Challenge;
-import de.mpasche.aoc.utils.Input;
+import de.mpasche.aoc.utils.InputUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -16,7 +16,7 @@ public class Day03 implements Day
 
   public Day03()
   {
-    input = Input.readInputFileByLine(2022, 3);
+    input = InputUtils.readInputFileByLine(2022, 3);
   }
 
   @Override

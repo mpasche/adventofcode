@@ -2,7 +2,7 @@ package de.mpasche.aoc._2022;
 
 import de.mpasche.aoc.common.Day;
 import de.mpasche.aoc.common.Challenge;
-import de.mpasche.aoc.utils.Input;
+import de.mpasche.aoc.utils.InputUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -23,7 +23,7 @@ public class Day05 implements Day
 
   public Day05()
   {
-    this.input = Input.readInputFile(2022, 5);
+    this.input = InputUtils.readInputFile(2022, 5);
   }
 
   @Override
@@ -98,7 +98,7 @@ public class Day05 implements Day
   {
     return input.stream()
       .map(MOVE_PATTERN::matcher)
-      .filter(Matcher::find)
+      .filter(Matcher::matches)
       .map(matcher -> new Move(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)) - 1, Integer.parseInt(matcher.group(3)) - 1))
       .toList();
   }

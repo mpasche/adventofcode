@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ChallengeLoader
 {
   /**
-   * Loads a challenge for the specified year and day.
+   * Loads a challenge for the given year and day.
    *
    * @param year the year of the challenge to load.
    * @param day the day of the challenge to load.

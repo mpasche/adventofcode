@@ -17,10 +17,10 @@ import java.util.List;
  */
 @Slf4j
 @UtilityClass
-public class Input
+public class InputUtils
 {
   /**
-   * Writes the given string data to the specified file.
+   * Writes the given string data to the given file.
    *
    * @param file The file to write to.
    * @param data The string data to write.
@@ -33,12 +33,12 @@ public class Input
   }
 
   /**
-   * Loads the input file for the specified year and day.
+   * Loads the input file for the given year and day.
    * If the file doesn't exist, it is created and the input data is fetched from the Advent of Code website.
    *
    * @param year The year of the Advent of Code event.
    * @param day The day of the Advent of Code event.
-   * @return The input file for the specified year and day.
+   * @return The input file for the given year and day.
    * @throws IOException if an I/O error occurs while reading or writing to the file.
    * @throws InterruptedException if the current thread is interrupted while waiting for the input data to be fetched from the website.
    */

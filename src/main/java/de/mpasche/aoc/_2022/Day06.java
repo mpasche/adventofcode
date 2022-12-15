@@ -2,7 +2,7 @@ package de.mpasche.aoc._2022;
 
 import de.mpasche.aoc.common.Challenge;
 import de.mpasche.aoc.common.Day;
-import de.mpasche.aoc.utils.Input;
+import de.mpasche.aoc.utils.InputUtils;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -13,7 +13,7 @@ public class Day06 implements Day
 
   public Day06()
   {
-    this.input = Input.readInputFile(2022, 6);
+    this.input = InputUtils.readInputFile(2022, 6);
   }
 
   @Override

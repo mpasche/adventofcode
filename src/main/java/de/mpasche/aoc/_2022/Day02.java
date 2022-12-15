@@ -2,7 +2,7 @@ package de.mpasche.aoc._2022;
 
 import de.mpasche.aoc.common.Challenge;
 import de.mpasche.aoc.common.Day;
-import de.mpasche.aoc.utils.Input;
+import de.mpasche.aoc.utils.InputUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class Day02 implements Day
 
   public Day02()
   {
-    input = Input.readInputFileByLine(2022, 2);
+    input = InputUtils.readInputFileByLine(2022, 2);
   }
 
   private int calculateScore1(final String input)

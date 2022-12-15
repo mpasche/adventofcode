@@ -2,7 +2,7 @@ package de.mpasche.aoc._2022;
 
 import de.mpasche.aoc.common.Challenge;
 import de.mpasche.aoc.common.Day;
-import de.mpasche.aoc.utils.Input;
+import de.mpasche.aoc.utils.InputUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -22,13 +22,13 @@ public class Day07 implements Day
 
   public Day07()
   {
-    this.root = loadFilesystem(Input.readInputFileByLine(2022, 7));
+    this.root = loadFilesystem(InputUtils.readInputFileByLine(2022, 7));
   }
 
   @Override
   public void task1()
   {
-    log.info("Task 1: Total directory size {}.", root.dirs().stream().filter(dir -> dir.size() <= 100000).mapToInt(Node::size).sum());
+    log.info("Task 1: Total directory size {}.", root.dirs().filter(dir -> dir.size() <= 100000).mapToInt(Node::size).sum());
   }
 
   @Override
@@ -36,7 +36,7 @@ public class Day07 implements Day
   {
     // 70.000.000 - 30.000.000 -> max 40.000.000 may be stored on the filesystem
     final int sizeToDelete = root.size() - 70000000 - 30000000;
-    log.info("Task 2: Directory size to delete {}.", root.dirs().stream().filter(dir -> dir.size() > sizeToDelete).mapToInt(Node::size).sorted().findFirst().orElse(-1));
+    log.info("Task 2: Directory size to delete {}.", root.dirs().filter(dir -> dir.size() > sizeToDelete).mapToInt(Node::size).sorted().findFirst().orElse(-1));
   }
 
   private Node loadFilesystem(final List<String> input)
@@ -76,12 +76,11 @@ public class Day07 implements Day
       };
     }
 
-    public List<Node> dirs()
+    public Stream<Node> dirs()
     {
       return children.values().stream()
         .filter(node -> node.size == 0)
-        .flatMap(node -> Stream.concat(Stream.of(node), node.dirs().stream()))
-        .toList();
+        .flatMap(node -> Stream.concat(Stream.of(node), node.dirs()));
     }
 
     public int size()

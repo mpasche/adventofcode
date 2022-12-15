@@ -2,7 +2,7 @@ package de.mpasche.aoc._2022;
 
 import de.mpasche.aoc.common.Challenge;
 import de.mpasche.aoc.common.Day;
-import de.mpasche.aoc.utils.Input;
+import de.mpasche.aoc.utils.InputUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -16,19 +16,24 @@ public class Day08 implements Day
 
   public Day08()
   {
-    this.grid = loadGrid(Input.readInputFileByLine(2022, 8));
+    this.grid = loadGrid(InputUtils.readInputFileByLine(2022, 8));
   }
 
   @Override
   public void task1()
   {
-    log.info("Task 1: {} trees are visible from outside the grid.", IntStream.range(0, grid.length).flatMap(row -> IntStream.range(0, grid[row].length).filter(col -> isVisible(row, col))).count());
+    log.info("Task 1: {} trees are visible from outside the grid.", IntStream.range(0, grid.length)
+      .flatMap(row -> IntStream.range(0, grid[row].length).filter(col -> isVisible(row, col)))
+      .count());
   }
 
   @Override
   public void task2()
   {
-    log.info("Task 2: {} is the highest possible scenic score for any tree.", IntStream.range(0, grid.length).flatMap(row -> IntStream.range(0, grid[row].length).map(col -> countVisible(row, col))).max().orElse(-1));
+    log.info("Task 2: {} is the highest possible scenic score for any tree.", IntStream.range(0, grid.length)
+      .flatMap(row -> IntStream.range(0, grid[row].length).map(col -> countVisible(row, col)))
+      .max()
+      .orElse(-1));
   }
 
   private int[][] loadGrid(final List<String> input)
