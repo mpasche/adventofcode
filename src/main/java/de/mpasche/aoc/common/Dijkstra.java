@@ -10,11 +10,11 @@ import java.util.*;
  * @author mpasche
  */
 @SuppressWarnings("UnstableApiUsage")
-public class Dijkstra<E>
+public class Dijkstra<N>
 {
-  private final ValueGraph<E, Integer> graph;
+  private final ValueGraph<N, Integer> graph;
 
-  public Dijkstra(final ValueGraph<E, Integer> graph)
+  public Dijkstra(final ValueGraph<N, Integer> graph)
   {
     this.graph = graph;
   }
@@ -25,24 +25,24 @@ public class Dijkstra<E>
    * @param source the source node.
    * @return a map of nodes to their shortest path distance from the source node.
    */
-  public Map<E, Integer> shortestPath(final E source)
+  public Map<N, Integer> shortestPath(final N source)
   {
     // Initialize distances map with the source node having a distance of 0
-    final Map<E, Integer> distances = new HashMap<>();
+    final Map<N, Integer> distances = new HashMap<>();
     distances.put(source, 0);
     // Create a priority queue of nodes sorted by their distance from the source
-    final Queue<E> queue = new PriorityQueue<>(Comparator.comparingInt(distances::get));
+    final Queue<N> queue = new PriorityQueue<>(Comparator.comparingInt(distances::get));
     queue.offer(source);
     // Set of visited nodes
-    final Set<E> visited = new HashSet<>();
+    final Set<N> visited = new HashSet<>();
     while(!queue.isEmpty())
     {
       // Get the next node with the shortest distance
-      final E from = queue.poll();
+      final N from = queue.poll();
       // Mark the node as visited
       visited.add(from);
       // For each neighbor of the current node
-      for(final E to : graph.successors(from))
+      for(final N to : graph.successors(from))
       {
         // If the neighbor has not been visited
         if(!visited.contains(to))
