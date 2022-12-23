@@ -28,27 +28,27 @@ public class Day12 implements Day
   @Override
   public void task1()
   {
-    final String heights = input.replaceAll("\\R", "");
-    final int start = heights.indexOf('S');
-    final int end = heights.indexOf('E');
+    final String nodes = input.replaceAll("\\R", "");
+    final int start = nodes.indexOf('S');
+    final int end = nodes.indexOf('E');
 
-    final ValueGraph<Integer, Integer> graph = loadGraph(input.split("\\R"), (from, to) -> from >= to || from + 1 == to);
+    final ValueGraph<Integer, Integer> graph = loadGraph((from, to) -> from >= to || from + 1 == to);
     final Dijkstra<Integer> dijkstra = new Dijkstra<>(graph);
-    final Map<Integer, Integer> distances = dijkstra.shortestPath(start);
+    final Integer distance = dijkstra.shortestDistance(start, end);
 
-    log.info("Task 1: {} steps are required at least to get from the current position to the location with the best signal.", distances.get(end));
+    log.info("Task 1: {} steps are required at least to get from the current position to the location with the best signal.", distance);
   }
 
   @Override
   public void task2()
   {
-    final String heights = input.replaceAll("\\R", "");
-    final int start = heights.indexOf('E');
-    final List<Integer> ends = IntStream.range(0, heights.length()).filter(i -> heights.charAt(i) == 'a').boxed().toList();
+    final String nodes = input.replaceAll("\\R", "");
+    final int start = nodes.indexOf('E');
+    final List<Integer> ends = IntStream.range(0, nodes.length()).filter(i -> nodes.charAt(i) == 'a').boxed().toList();
 
-    final ValueGraph<Integer, Integer> graph = loadGraph(input.split("\\R"), (from, to) -> from <= to || from - 1 == to);
+    final ValueGraph<Integer, Integer> graph = loadGraph((from, to) -> from <= to || from - 1 == to);
     final Dijkstra<Integer> dijkstra = new Dijkstra<>(graph);
-    final Map<Integer, Integer> distances = dijkstra.shortestPath(start);
+    final Map<Integer, Integer> distances = dijkstra.shortestDistances(start);
 
     log.info("Task 2: {} steps are required at least to get from the lowest position to the location with the best signal.", ends.stream()
       .map(distances::get)
@@ -58,34 +58,37 @@ public class Day12 implements Day
       .orElse(-1));
   }
 
-  private ValueGraph<Integer, Integer> loadGraph(final String[] input, final BiPredicate<Integer, Integer> hasEdge)
+  private ValueGraph<Integer, Integer> loadGraph(final BiPredicate<Integer, Integer> hasEdge)
   {
     final MutableValueGraph<Integer, Integer> graph = ValueGraphBuilder.directed().build();
 
-    final int numRows = input.length;
-    for(int row = 0; row < numRows; row++)
+    final String[] grid = input.split("\\R");
+    final int rows = grid.length;
+    final int cols = grid[0].length();
+
+    final char[] nodes = input.replaceAll("\\R", "").toCharArray();
+    for(int row = 0; row < rows; row++)
     {
-      final int numCols = input[row].length();
-      for(int col = 0; col < numCols; col++)
+      for(int col = 0; col < cols; col++)
       {
-        final int currentIndex = row * numCols + col;
-        final int currentHeight = getHeight(input[row].charAt(col));
+        final int currentIndex = row * cols + col;
+        final int currentHeight = getHeight(nodes[currentIndex]);
 
         graph.addNode(currentIndex);
 
-        if(row > 0 && hasEdge.test(currentHeight, getHeight(input[row - 1].charAt(col))))
+        if(row > 0 && hasEdge.test(currentHeight, getHeight(nodes[(row - 1) * cols + col])))
         {
-          graph.putEdgeValue(currentIndex, (row - 1) * numCols + col, 1);
+          graph.putEdgeValue(currentIndex, (row - 1) * cols + col, 1);
         }
-        if(row < numRows - 1 && hasEdge.test(currentHeight, getHeight(input[row + 1].charAt(col))))
+        if(row < rows - 1 && hasEdge.test(currentHeight, getHeight(nodes[(row + 1) * cols + col])))
         {
-          graph.putEdgeValue(currentIndex, (row + 1) * numCols + col, 1);
+          graph.putEdgeValue(currentIndex, (row + 1) * cols + col, 1);
         }
-        if(col < numCols - 1 && hasEdge.test(currentHeight, getHeight(input[row].charAt(col + 1))))
+        if(col < cols - 1 && hasEdge.test(currentHeight, getHeight(nodes[currentIndex + 1])))
         {
           graph.putEdgeValue(currentIndex, currentIndex + 1, 1);
         }
-        if(col > 0 && hasEdge.test(currentHeight, getHeight(input[row].charAt(col - 1))))
+        if(col > 0 && hasEdge.test(currentHeight, getHeight(nodes[currentIndex - 1])))
         {
           graph.putEdgeValue(currentIndex, currentIndex - 1, 1);
         }

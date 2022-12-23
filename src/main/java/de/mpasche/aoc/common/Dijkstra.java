@@ -20,12 +20,29 @@ public class Dijkstra<N>
   }
 
   /**
-   * Calculates the shortest path distances from the source node to all other nodes in the graph.
+   * Calculates the shortest distances from the source node to all other nodes in the graph.
    *
    * @param source the source node.
-   * @return a map of nodes to their shortest path distance from the source node.
+   * @return a map of nodes to their shortest distance from the source node.
    */
-  public Map<N, Integer> shortestPath(final N source)
+  public Map<N, Integer> shortestDistances(final N source)
+  {
+    return buildPath(source, null);
+  }
+
+  /**
+   * Calculates the shortest distance from the source node to the target node in the graph.
+   *
+   * @param source the source node.
+   * @param target the target node.
+   * @return the shortest distance from the source node to the target node.
+   */
+  public Integer shortestDistance(final N source, final N target)
+  {
+    return buildPath(source, target).get(target);
+  }
+
+  private Map<N, Integer> buildPath(final N source, final N target)
   {
     // Initialize distances map with the source node having a distance of 0
     final Map<N, Integer> distances = new HashMap<>();
@@ -39,7 +56,12 @@ public class Dijkstra<N>
     {
       // Get the next node with the shortest distance
       final N from = queue.poll();
-      // Mark the node as visited
+      // If the current node is the target node then we have found the shortest distance
+      if(from.equals(target))
+      {
+        return distances;
+      }
+      // Mark the current node as visited
       visited.add(from);
       // For each neighbor of the current node
       for(final N to : graph.successors(from))
