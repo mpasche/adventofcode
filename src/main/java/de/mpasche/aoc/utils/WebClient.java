@@ -21,7 +21,7 @@ import java.time.Duration;
 public class WebClient
 {
   /**
-   * Sends an HTTP request to a URL constructed using the given year and day.
+   * Sends a request to a URL constructed using the given year and day.
    * The response is converted to a string and passed to the handleResponse method for further processing.
    *
    * @param year The year to use in the URL.
@@ -42,21 +42,22 @@ public class WebClient
   }
 
   /**
-   * Creates an HTTP GET request for the given URL.
+   * Creates a GET request for the given URL.
    *
    * @param url The URL for the request.
    * @return The request object.
    */
   private static HttpRequest createRequest(final String url)
   {
-    return HttpRequest.newBuilder()
+    return HttpRequest
+      .newBuilder()
       .uri(URI.create(url))
       .GET()
       .build();
   }
 
   /**
-   * Creates and returns an HttpClient object that is configured with a cookie handler and a connection timeout of 5 seconds.
+   * Creates and returns a HttpClient that is configured with a cookie handler and a connection timeout of 5 seconds.
    * The cookie handler is obtained by calling the getCookieHandler method.
    *
    * @return The HttpClient object.
@@ -64,14 +65,15 @@ public class WebClient
    */
   private static HttpClient getClient()
   {
-    return HttpClient.newBuilder()
+    return HttpClient
+      .newBuilder()
       .cookieHandler(getCookieHandler())
       .connectTimeout(Duration.ofSeconds(5))
       .build();
   }
 
   /**
-   * Creates and returns a CookieManager object that contains a cookie obtained by calling the getCookie method.
+   * Creates and returns a CookieManager that contains a cookie obtained by calling the getCookie method.
    *
    * @return The CookieManager object.
    * @see #getCookie()
@@ -84,7 +86,7 @@ public class WebClient
   }
 
   /**
-   * Creates and returns an HttpCookie object that represents a session cookie with the name "session" and the value obtained from the Config class.
+   * Creates and returns a HttpCookie that represents a session cookie with the name "session" and the value obtained from the Config class.
    *
    * @return The HttpCookie object.
    * @see Config#getSession()
@@ -98,7 +100,7 @@ public class WebClient
   }
 
   /**
-   * Handles the response from an HTTP request.
+   * Handles the response from a request.
    *
    * @param response The response to handle.
    * @throws ConnectException If the response has an error status code.
