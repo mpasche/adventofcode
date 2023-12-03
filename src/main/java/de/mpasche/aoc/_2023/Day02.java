@@ -32,7 +32,7 @@ public class Day02 implements Day
       .map(this::decodeGame)
       .filter(Objects::nonNull)
       .filter(this::isValidGame)
-      .mapToInt(game -> game.number)
+      .mapToInt(Game::number)
       .sum());
   }
 
