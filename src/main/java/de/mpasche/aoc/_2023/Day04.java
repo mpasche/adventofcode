@@ -32,33 +32,32 @@ public class Day04 implements Day
   {
     log.info("Task 1: The cards are worth a total of {} points.", cards.stream()
       .mapToInt(this::calculateMatches)
-      .map(this::calculateScore)
+      .map(this::calculatePoints)
       .sum());
   }
 
   @Override
   public void task2()
   {
-    final int[] cardsArray = new int[cards.size()];
-    Arrays.fill(cardsArray, 1);
+    final int[] cardCountArray = new int[cards.size()];
+    Arrays.fill(cardCountArray, 1);
 
-    for(final Card card : cards)
+    for(int i = 0; i < cardCountArray.length; i++)
     {
-      final int cardId = card.number - 1;
-
-      final int matches = calculateMatches(card);
-      for(int i = 1; i <= matches; i++)
+      final int matches = calculateMatches(cards.get(i));
+      for(int j = 1; j <= matches; j++)
       {
-        // Cards will never make you copy a card past the end of the table.
-        if(cardId + i < cardsArray.length)
+        if(i + j >= cardCountArray.length)
         {
-          // Add the number of cards (including copies) of the current card, used in calculating the matches.
-          cardsArray[cardId + i] = cardsArray[cardId + i] + cardsArray[cardId];
+          // Cards will never make you copy a card past the end of the table.
+          break;
         }
+        // Add the number of cards (including copies) of the current card, used in calculating the matches.
+        cardCountArray[i + j] = cardCountArray[i + j] + cardCountArray[i];
       }
     }
 
-    log.info("Task 2: There are a total of {} scratchcards.", Arrays.stream(cardsArray).sum());
+    log.info("Task 2: There are a total of {} scratchcards.", Arrays.stream(cardCountArray).sum());
   }
 
   private List<Card> parseCards(final List<String> input)
@@ -78,13 +77,14 @@ public class Day04 implements Day
         cards.add(card);
       }
     }
+
     return cards;
   }
 
-  private Set<Integer> parseNumbers(final String input)
+  private Set<Integer> parseNumbers(final String numbers)
   {
     return NUMBER_PATTERN
-      .matcher(input)
+      .matcher(numbers)
       .results()
       .map(MatchResult::group)
       .map(Integer::parseInt)
@@ -98,7 +98,7 @@ public class Day04 implements Day
     return matches.size();
   }
 
-  private int calculateScore(final int matches)
+  private int calculatePoints(final int matches)
   {
     // Same as Math.pow(2, matches - 1)
     return matches > 0 ? 1 << (matches - 1) : 0;
