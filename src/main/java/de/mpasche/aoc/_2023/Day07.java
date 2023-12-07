@@ -146,21 +146,21 @@ public class Day07 implements Day
   {
     return (o1, o2) -> {
 
-      final TYPE type = withJoker
+      final TYPE type1 = withJoker
         ? getTypeWithJoker(getCardCountMap(o1))
         : getType(getCardCountMap(o1));
-      final TYPE otherType = withJoker
+      final TYPE type2 = withJoker
         ? getTypeWithJoker(getCardCountMap(o2))
         : getType(getCardCountMap(o2));
 
-      int compare = Integer.compare(type.ordinal(), otherType.ordinal());
+      int compare = Integer.compare(type1.ordinal(), type2.ordinal());
       if(compare == 0)
       {
         for(int i = 0; i < Math.min(o1.cards.length(), o2.cards.length()); i++)
         {
-          final int cardValue = getCardValue(o1.cards.charAt(i), withJoker);
-          final int otherCardValue = getCardValue(o2.cards.charAt(i), withJoker);
-          compare = Integer.compare(cardValue, otherCardValue);
+          final int cardValue1 = getCardValue(o1.cards.charAt(i), withJoker);
+          final int cardValue2 = getCardValue(o2.cards.charAt(i), withJoker);
+          compare = Integer.compare(cardValue1, cardValue2);
           if(compare != 0)
           {
             break;
