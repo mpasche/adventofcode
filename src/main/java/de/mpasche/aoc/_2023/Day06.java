@@ -59,7 +59,7 @@ public class Day06 implements Day
   private long parseNumber(final String number)
   {
     final Matcher matcher = NUMBER_PATTERN.matcher(number);
-    if(matcher.matches())
+    if(matcher.find())
     {
       return Long.parseLong(matcher.group());
     }
