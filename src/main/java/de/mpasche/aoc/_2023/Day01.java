@@ -21,13 +21,20 @@ public class Day01 implements Day
   @Override
   public void task1()
   {
-    log.info("Task 1: The sum of all calibration values is {}.", input.stream().map(this::decodeCalibration).mapToInt(Integer::parseInt).sum());
+    log.info("Task 1: The sum of all calibration values is {}.", input.stream()
+      .map(this::decodeCalibration)
+      .mapToInt(Integer::parseInt)
+      .sum());
   }
 
   @Override
   public void task2()
   {
-    log.info("Task 2: The sum of all calibration values is {}.", input.stream().map(this::replaceDigitWords).map(this::decodeCalibration).mapToInt(Integer::parseInt).sum());
+    log.info("Task 2: The sum of all calibration values is {}.", input.stream()
+      .map(this::replaceDigitWords)
+      .map(this::decodeCalibration)
+      .mapToInt(Integer::parseInt)
+      .sum());
   }
 
   private String decodeCalibration(final String line)
