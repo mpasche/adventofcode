@@ -40,23 +40,10 @@ public class Day06 implements Day
   @Override
   public void task2()
   {
-    final String timeString = input.get(0).replaceAll("\\s", "");
-    final String distanceString = input.get(1).replaceAll("\\s", "");
+    final long time = parseNumber(input.get(0).replaceAll("\\s", ""));
+    final long distance = parseNumber(input.get(1).replaceAll("\\s", ""));
 
-    final Matcher timeMatcher = NUMBER_PATTERN.matcher(timeString);
-    final Matcher distanceMatcher = NUMBER_PATTERN.matcher(distanceString);
-
-    if(timeMatcher.find() && distanceMatcher.find())
-    {
-      log.info("Task 2: The record can be beaten in {} ways.", calculateNewRecordCount(
-        Long.parseLong(timeMatcher.group()),
-        Long.parseLong(distanceMatcher.group())
-      ));
-    }
-    else
-    {
-      throw new RuntimeException();
-    }
+    log.info("Task 2: The record can be beaten in {} ways.", calculateNewRecordCount(time, distance));
   }
 
   private List<Long> parseNumbers(final String numbers)
@@ -67,6 +54,16 @@ public class Day06 implements Day
       .map(MatchResult::group)
       .map(Long::parseLong)
       .toList();
+  }
+
+  private long parseNumber(final String number)
+  {
+    final Matcher matcher = NUMBER_PATTERN.matcher(number);
+    if(matcher.matches())
+    {
+      return Long.parseLong(matcher.group());
+    }
+    throw new RuntimeException();
   }
 
   private long calculateNewRecordCount(final long time, final long distance)
