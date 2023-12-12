@@ -40,7 +40,7 @@ public class PointUtils
     }
     else if(from.x == to.x)
     {
-      return (from.y < to.y) ? Direction.NORTH : Direction.SOUTH;
+      return (from.y < to.y) ? Direction.SOUTH : Direction.NORTH;
     }
     else if(from.y == to.y)
     {
@@ -48,11 +48,11 @@ public class PointUtils
     }
     else if(from.x < to.x)
     {
-      return (from.y < to.y) ? Direction.NORTHEAST : Direction.SOUTHEAST;
+      return (from.y < to.y) ? Direction.SOUTHEAST : Direction.NORTHEAST;
     }
     else
     {
-      return (from.y < to.y) ? Direction.NORTHWEST : Direction.SOUTHWEST;
+      return (from.y < to.y) ? Direction.SOUTHWEST : Direction.NORTHWEST;
     }
   }
 
@@ -67,15 +67,15 @@ public class PointUtils
   {
     return switch(direction)
     {
-      case CENTER -> point;
-      case NORTH -> new Point(point.x, point.y + 1);
-      case NORTHEAST -> new Point(point.x + 1, point.y + 1);
+      case CENTER -> point.getLocation();
+      case NORTH -> new Point(point.x, point.y - 1);
+      case NORTHEAST -> new Point(point.x + 1, point.y - 1);
       case EAST -> new Point(point.x + 1, point.y);
-      case SOUTHEAST -> new Point(point.x + 1, point.y - 1);
-      case SOUTH -> new Point(point.x, point.y - 1);
-      case SOUTHWEST -> new Point(point.x - 1, point.y - 1);
+      case SOUTHEAST -> new Point(point.x + 1, point.y + 1);
+      case SOUTH -> new Point(point.x, point.y + 1);
+      case SOUTHWEST -> new Point(point.x - 1, point.y + 1);
       case WEST -> new Point(point.x - 1, point.y);
-      case NORTHWEST -> new Point(point.x - 1, point.y + 1);
+      case NORTHWEST -> new Point(point.x - 1, point.y - 1);
     };
   }
 }
