@@ -69,20 +69,12 @@ public class Day10 implements Day
       .toArray(char[][]::new);
 
     final List<Point> path = new ArrayList<>();
-    final Deque<Point> deque = new ArrayDeque<>();
 
-    final Point start = getStart(grid);
-    deque.addFirst(start);
-
-    while(!deque.isEmpty())
+    Point current = getStart(grid);
+    while(current != null)
     {
-      Point current = deque.removeFirst();
       path.add(current);
       current = findNext(grid, path, current);
-      if(current != null)
-      {
-        deque.addFirst(current);
-      }
     }
 
     return path;
