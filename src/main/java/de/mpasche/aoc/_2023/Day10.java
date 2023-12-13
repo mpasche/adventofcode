@@ -92,7 +92,7 @@ public class Day10 implements Day
         }
       }
     }
-    throw new RuntimeException();
+    return null;
   }
 
   private Point findNext(final char[][] grid, final List<Point> visited, final Point current)
