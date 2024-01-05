@@ -16,13 +16,39 @@ public class PointUtils
   /**
    * Determines whether two points are adjacent to each other.
    *
-   * @param firstPoint  The coordinates of the first point.
+   * @param firstPoint The coordinates of the first point.
+   * @param secondPoint The coordinates of the second point.
+   * @return true if the points are adjacent, false otherwise.
+   */
+  public static boolean isAdjacent(final Point firstPoint, final Point secondPoint)
+  {
+    final int dx = Math.abs(firstPoint.x - secondPoint.x);
+    final int dy = Math.abs(firstPoint.y - secondPoint.y);
+    return (dx == 0 && dy <= 1) || (dx <= 1 && dy == 0);
+  }
+
+  /**
+   * Determines whether two points are adjacent to each other.
+   *
+   * @param firstPoint The coordinates of the first point.
    * @param secondPoint The coordinates of the second point.
    * @return true if the points are adjacent, false otherwise.
    */
   public static boolean isAdjacentInAllDirections(final Point firstPoint, final Point secondPoint)
   {
     return Math.abs(firstPoint.x - secondPoint.x) <= 1 && Math.abs(firstPoint.y - secondPoint.y) <= 1;
+  }
+
+  /**
+   * Calculates the Manhattan distance between two points.
+   *
+   * @param from The starting point.
+   * @param to The ending point.
+   * @return The distance between the starting point and the ending point.
+   */
+  public static int getDistance(final Point from, final Point to)
+  {
+    return Math.abs(from.x - to.x) + Math.abs(from.y - to.y);
   }
 
   /**
